@@ -24,7 +24,16 @@ acks=-1，生产者发送过来数据Leader和ISR队列里面所有Follwer应答
 	min.insync.replicas大于等于2。
 **Kafka数据重复**
 去重= 幂等性+事务
-幂等性就是
+4）总结
+（1）生产者角度
+	acks设置为-1 （acks=-1）。
+	幂等性（enable.idempotence = true） + 事务 。
+（2）broker服务端角度
+	分区副本大于等于2 （--replication-factor 2）。
+	ISR里应答的最小副本数量大于等于2 （min.insync.replicas = 2）。
+（3）消费者
+	事务 + 手动提交offset （enable.auto.commit = false）。
+	消费者输出的目的地必须支持事务（MySQL、Kafka）。
 
 
 
